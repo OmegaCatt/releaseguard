@@ -1,0 +1,14 @@
+{
+  "name": "releaseguard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test",
+    "check": "node --check server.mjs && node --check runner.mjs && node --check store.mjs",
+    "qa": "node scripts/qa.mjs"
+  },
+  "dependencies": { "playwright": "1.62.1" }
+}

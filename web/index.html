@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ReleaseGuard: ukázková kontrola API, databáze a webu před vydáním aplikace.">
+  <title>ReleaseGuard — kontrola před vydáním</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Přeskočit na obsah</a>
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="ReleaseGuard, přehled"><span class="brand-mark">RG</span><span>ReleaseGuard<small>QA pracoviště</small></span></a>
+      <div class="nav-label">PRACOVNÍ PROSTOR</div>
+      <nav aria-label="Hlavní nabídka">
+        <button class="nav-item active" data-view="overview" aria-current="page"><span aria-hidden="true">▦</span> Přehled</button>
+        <button class="nav-item" data-view="target"><span aria-hidden="true">□</span> Testovaný obchod</button>
+        <button class="nav-item" data-view="method"><span aria-hidden="true">≡</span> Metodika</button>
+      </nav>
+      <div class="sidebar-foot"><span class="status-dot"></span> Fiktivní data<br><small>Bez přístupu ke skutečnému obchodu</small></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><span>PORTFOLIO / TESTOVÁNÍ A AUTOMATIZACE</span><span id="server-status" class="server-status">Ověřuji server…</span></header>
+      <main id="main">
+        <section id="overview-view">
+          <div class="page-heading"><div><p class="eyebrow">RELEASEGUARD · VERZE 1</p><h1>Kontrola před vydáním</h1><p class="lead">Jeden testovací běh prověří API, data v SQL a nákup v prohlížeči. Každá chyba má postup k opakování a konkrétní výsledek.</p></div></div>
+          <div class="notice"><strong>Fiktivní ukázka.</strong> Obchod i závady jsou vytvořené pro toto portfolio. Testy běží nad izolovanou databází, ne nad skutečnými zákazníky.</div>
+          <section class="run-panel" aria-labelledby="run-heading">
+            <div><p class="section-kicker">NOVÝ BĚH</p><h2 id="run-heading">Vyberte stav aplikace</h2><p id="scenario-note" class="subtle">Bez závady: všech sedm kontrol má projít.</p></div>
+            <div class="run-controls"><label for="scenario">Testovací scénář</label><select id="scenario"><option value="clean">Bez závady</option><option value="duplicate">Opakovaná objednávka</option><option value="stock">Nesoulad skladu</option><option value="validation">Chybějící validace</option><option value="price">Stará cena na webu</option></select><button id="run-button" class="button primary" type="button">Spustit 7 kontrol <span aria-hidden="true">→</span></button></div>
+          </section>
+          <section class="metrics" aria-label="Souhrn posledního běhu"><article><span>PROVEDENO</span><strong id="metric-total">—</strong><small>automatických kontrol</small></article><article><span>PROŠLO</span><strong id="metric-passed">—</strong><small>bez zjištěné chyby</small></article><article><span>SELHALO</span><strong id="metric-failed">—</strong><small>ověřte podrobnosti</small></article><article><span>TRVÁNÍ</span><strong id="metric-duration">—</strong><small>místní běh</small></article></section>
+          <section class="panel" aria-labelledby="results-heading"><div class="panel-head"><div><p class="section-kicker">POSLEDNÍ VÝSLEDEK</p><h2 id="results-heading">Testovací protokol</h2><p id="report-subtitle" class="subtle">Zatím nebyl spuštěn žádný test.</p></div><button id="download-report" class="button secondary" type="button" disabled>Stáhnout JSON ↓</button></div><div id="result-filters" class="filters" role="group" aria-label="Filtrovat výsledky"><button type="button" data-filter="all" class="active">Vše</button><button type="button" data-filter="failed">Chyby</button><button type="button" data-filter="passed">Prošlo</button></div><div id="case-list" class="case-list"><p class="empty">Vyberte scénář a spusťte kontroly.</p></div></section>
+          <section class="panel history-panel" aria-labelledby="history-heading"><div class="panel-head"><div><p class="section-kicker">HISTORIE</p><h2 id="history-heading">Předchozí běhy</h2></div><span class="subtle">Uložené jen na tomto počítači</span></div><div id="history-list" class="history-list"><p class="empty">Historie je zatím prázdná.</p></div></section>
+        </section>
+        <section id="target-view" hidden><p class="eyebrow">TESTOVACÍ PROSTŘEDÍ</p><h1>Malý obchod. Skutečné kontroly.</h1><p class="lead">Tři fiktivní produkty, nákupní formulář a SQLite databáze. Závady mění konkrétní chování aplikace; testy je musí odhalit.</p><div class="info-grid"><article class="panel"><h2>Otevřít obchod</h2><p>Projděte stejný nákupní tok, který automaticky prověřuje prohlížečový test.</p><a class="button primary" href="/store" target="_blank" rel="noopener">Otevřít testovaný obchod ↗</a></article><article class="panel"><h2>Co testujeme</h2><ul><li>Schéma a stavové kódy API</li><li>Opakované požadavky a zásoby</li><li>Přesné SQL záznamy</li><li>Cenu a nákup na webu</li></ul></article></div><p class="small-note">Ruční obchod běží na vlastní fiktivní sadě. Každý automatický test má samostatnou izolovanou databázi.</p></section>
+        <section id="method-view" hidden><p class="eyebrow">METODIKA</p><h1>Jak vzniká výsledek</h1><p class="lead">ReleaseGuard hlásí jen pozorovaný rozdíl mezi očekáváním a skutečností. Vnější závislosti, například chybějící prohlížeč, označuje samostatně jako chybu prostředí.</p><div class="method-list"><article><span>01</span><div><h2>Izolovaný vstup</h2><p>Každá kontrola dostane novou SQLite databázi se stejnými fiktivními produkty.</p></div></article><article><span>02</span><div><h2>API, SQL a prohlížeč</h2><p>Kontroly volají skutečné HTTP endpointy, čtou SQL stav a používají Playwright pro webový nákup.</p></div></article><article><span>03</span><div><h2>Reprodukovatelný nález</h2><p>Protokol ukládá očekávání, zjištěný stav a kroky. Selhání v prohlížeči přidá screenshot a trace.</p></div></article></div><div class="notice">Přepínatelné závady jsou výuková simulace. Úspěšný běh potvrzuje těchto sedm kontrol, nikoli bezchybnost libovolného e-shopu.</div></section>
+      </main>
+      <footer>ReleaseGuard <span>Fiktivní data · místní demonstrační aplikace</span></footer>
+    </div>
+  </div>
+  <dialog id="case-dialog" aria-labelledby="case-title"><div class="dialog-head"><div><p id="case-code" class="section-kicker"></p><h2 id="case-title"></h2></div><button id="dialog-close" class="close-button" type="button" aria-label="Zavřít detail">×</button></div><div id="case-detail"></div><button id="download-case" class="button secondary" type="button" hidden>Stáhnout hlášení chyby (.md) ↓</button></dialog>
+  <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
+</body>
+</html>
