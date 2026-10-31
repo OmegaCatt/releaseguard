@@ -1,3 +1,4 @@
+import { reportToJUnit } from './report-junit.mjs';
 const $ = id => document.getElementById(id);
 const state = { report: null, currentId: null, selectedTest: null, filter: 'all', busy: false, poll: null };
 const notes = {
@@ -36,6 +37,7 @@ function renderReport() {
   $('metric-duration').textContent = report ? `${(report.durationMs / 1000).toFixed(1)} s` : '—';
   $('report-subtitle').textContent = report ? (report.message || `${report.scenarioLabel} · ${date(report.createdAt)} · ${countWord(report.failed, 'chyba', 'chyby', 'chyb')}, ${countWord(report.errors, 'chyba', 'chyby', 'chyb')} prostředí`) : state.busy ? 'Kontroly probíhají…' : 'Zatím nebyl spuštěn žádný test.';
   $('download-report').disabled = !report;
+  $('download-junit').disabled = !report;
   renderCases();
 }
 function detailBlock(title, content) { const block = node('section', 'detail-block'); block.append(node('h3', '', title), node('p', '', content)); return block; }
@@ -71,6 +73,7 @@ async function startRun() {
   catch (error) { setBusy(false); toast(error.message); }
 }
 function downloadReport() { if (!state.report) return; const url = URL.createObjectURL(new Blob([JSON.stringify(state.report, null, 2)], { type: 'application/json' })); const link = node('a'); link.href = url; link.download = `releaseguard-${state.report.scenario}-${state.report.id}.json`; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000); }
+function downloadJUnit() { if (!state.report) return; const url = URL.createObjectURL(new Blob([reportToJUnit(state.report)], { type: 'application/xml;charset=utf-8' })); const link = node('a'); link.href = url; link.download = `releaseguard-${state.report.scenario}-${state.report.id}.xml`; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000); }
 function downloadCase() {
   const test = state.selectedTest, report = state.report;
   if (!test || !report || test.status === 'passed') return;
@@ -82,6 +85,7 @@ document.querySelectorAll('[data-filter]').forEach(button => button.addEventList
 $('scenario').addEventListener('change', () => { $('scenario-note').textContent = notes[$('scenario').value]; });
 $('run-button').addEventListener('click', startRun);
 $('download-report').addEventListener('click', downloadReport);
+$('download-junit').addEventListener('click', downloadJUnit);
 $('download-case').addEventListener('click', downloadCase);
 $('dialog-close').addEventListener('click', () => $('case-dialog').close());
 Promise.all([api('/api/health'), loadHistory()]).then(([, runs]) => { $('server-status').textContent = 'Server dostupný'; if (runs.length) loadRun(runs[0].id).catch(error => toast(error.message)); }).catch(error => { $('server-status').textContent = 'Server nedostupný'; toast(error.message); });

@@ -10,7 +10,8 @@
 - **Čtyři vložené závady:** duplicitní objednávka při opakovaném požadavku, neodečtený sklad, přijetí nulového množství a rozdílná cena na webu a v API.
 - **Izolace testů:** každá kontrola dostane vlastní SQLite databázi se stejnými fiktivními produkty. Jedna chyba proto nemění vstup další kontroly.
 - **Skutečné ověření:** testy volají místní HTTP API, čtou SQL tabulky a procházejí nákup přes Playwright. Snímky a trace vznikají jen při selhání prohlížečového testu.
-- **Přehled výsledků:** filtr chyb, detail nálezu, historie běhů, JSON protokol a samostatné hlášení chyby ve formátu Markdown.
+- **Přehled výsledků:** filtr chyb, detail nálezu, historie běhů, JSON protokol, JUnit XML pro CI a samostatné hlášení chyby ve formátu Markdown.
+- **Technické vysvětlení:** rozklikávací panel ukazuje použité technologie, izolaci testů a vznik důkazů.
 - **Malý testovaný obchod:** tři fiktivní produkty a místní nákupní formulář, který lze otevřít a vyzkoušet ručně.
 
 ## Spuštění
@@ -30,7 +31,7 @@ pnpm test
 pnpm qa
 ```
 
-`pnpm test` ověřuje pravidla obchodu a bezpečnostní chování místního serveru. `pnpm qa` spustí prohlížečovou regresi v izolované dočasné databázi: zdravý běh, závadu ceny, screenshot, stažení hlášení, historii, mobilní rozložení a ruční nákup. Vytvoří `docs/preview.png` a `docs/mobile-preview.png`.
+`pnpm test` ověřuje pravidla obchodu, JUnit export a bezpečnostní chování místního serveru. `pnpm qa` spustí prohlížečovou regresi v izolované dočasné databázi: zdravý běh, závadu ceny, screenshot, stažení JUnit XML i hlášení, historii, mobilní rozložení a ruční nákup. Vytvoří `docs/preview.png` a `docs/mobile-preview.png`.
 
 ## Stav ověření
 
@@ -52,4 +53,4 @@ Server naslouchá jen na `127.0.0.1`, kontroluje `Host` a `Origin`, omezuje veli
 
 ## English summary
 
-ReleaseGuard is a local QA portfolio project that tests a fictional shop rather than displaying prewritten results. Seven checks cover HTTP API contracts, input validation, idempotent order creation, SQLite inventory consistency, stock limits, visible prices, and a browser checkout. Four injected faults demonstrate that the suite detects real differences. Failed browser checks retain a screenshot and Playwright trace; findings include expected and observed results, reproduction steps, JSON export, and a Markdown bug report. Tests use isolated SQLite databases, so runs are repeatable. Node.js 24+, Playwright, and a local browser are required. The server is loopback-only and must not be exposed as a production service.
+ReleaseGuard is a local QA portfolio project that tests a fictional shop rather than displaying prewritten results. Seven checks cover HTTP API contracts, input validation, idempotent order creation, SQLite inventory consistency, stock limits, visible prices, and a browser checkout. Four injected faults demonstrate that the suite detects real differences. Failed browser checks retain a screenshot and Playwright trace; findings include expected and observed results, reproduction steps, JSON and JUnit XML exports, and a Markdown bug report. An expandable note explains the test architecture. Tests use isolated SQLite databases, so runs are repeatable. Node.js 24+, Playwright, and a local browser are required. The server is loopback-only and must not be exposed as a production service.

@@ -4,6 +4,8 @@ Aktualizováno 31. 10. 2026. Místní Windows, Node.js 24.22.1, Playwright 1.62.
 
 ## Automatické kontroly
 
+- Po doplnění JUnit XML exportu a rozklikávacího technického přehledu prošlo `node --test` 7/7. Prohlížečová regrese skutečně stáhla XML s výsledkem 7 testů, 1 selháním a 0 chybami prostředí, otevřela technický přehled a znovu prošla zdravým i vadným scénářem. XML převádí selhání produktu na `failure` a chyby prostředí na `error`.
+
 - `node --test`: 6/6 testů prošlo. Kontrolují přesnou cenu v haléřích, izolaci transakcí, idempotenci, validaci, vyprodání, skutečné rozdíly vložených závad, místní server, `Host`, `Origin`, chybný JSON a zákaz čtení zdrojového souboru přes HTTP.
 - Prohlížečový průchod `node scripts/qa.mjs`: čistý běh 7/7, závada ceny 6/7, uložený screenshot a trace, stažené Markdown hlášení, načtení historie po obnovení stránky, mobilní šířka 390 px bez horizontálního přetečení, ruční nákup ve fiktivním obchodě.
 - Ručně spuštěné zbývající závady: duplicitní objednávka 6/7, nesoulad skladu 5/7, chybějící validace 6/7. Všechny výsledky byly bez chyby prostředí.

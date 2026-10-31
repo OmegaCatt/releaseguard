@@ -18,12 +18,18 @@ try {
   const errors = []; page.on('pageerror', error => errors.push(error.message));
   await page.goto(base, { waitUntil: 'networkidle' });
   assert.equal(await page.locator('#server-status').innerText(), 'Server dostupný');
+  await page.locator('.tech-details summary').click();
+  assert.equal(await page.locator('.tech-details').getAttribute('open'), '');
   await page.locator('#run-button').click();
   await page.waitForFunction(() => document.querySelector('#metric-passed')?.textContent === '7', null, { timeout: 20000 });
   assert.equal(await page.locator('#metric-failed').innerText(), '0');
   await page.locator('#scenario').selectOption('price');
   await page.locator('#run-button').click();
   await page.waitForFunction(() => document.querySelector('#metric-failed')?.textContent === '1', null, { timeout: 20000 });
+  const junitDownload = page.waitForEvent('download');
+  await page.locator('#download-junit').click();
+  const junitFile = await junitDownload;
+  assert.match(await readFile(await junitFile.path(), 'utf8'), /tests="7" failures="1" errors="0"/);
   await page.locator('[data-filter="failed"]').click();
   assert.equal(await page.locator('.case-row').count(), 1);
   await page.locator('.case-row').click();
