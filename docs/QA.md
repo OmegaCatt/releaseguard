@@ -1,5 +1,9 @@
 # Ověření ReleaseGuard
 
+## Kontrola dokumentace, 1. 11. 2026
+
+README byl doplněn o postup použití, skutečně použité technologie a návrh firemního zavedení. Jde jen o dokumentaci; aplikace nadále testuje pouze svůj fiktivní obchod. Před zveřejněním změn znovu prošlo `node --test` (7/7) a `node scripts/qa.mjs` (zdravý běh 7/7, vložená závada ceny, screenshot, hlášení, historie, mobilní rozložení a ruční nákup). Tyto výsledky neprokazují pokrytí cizích aplikací ani úplnou bezchybnost.
+
 Aktualizováno 31. 10. 2026. Místní Windows, Node.js 24.22.1, Playwright 1.62.1, Microsoft Edge.
 
 ## Automatické kontroly

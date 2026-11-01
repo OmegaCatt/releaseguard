@@ -14,6 +14,18 @@
 - **Technické vysvětlení:** rozklikávací panel ukazuje použité technologie, izolaci testů a vznik důkazů.
 - **Malý testovaný obchod:** tři fiktivní produkty a místní nákupní formulář, který lze otevřít a vyzkoušet ručně.
 
+## Jak se používá
+
+Spusťte místní server a v rozhraní proveďte čistý běh. Otevřete detail každé kontroly: očekávání, pozorovaný výsledek a případné kroky k opakování. Pak vyberte jednu vloženou závadu a spusťte stejnou sadu znovu. Porovnejte konkrétní selhání, stáhněte JUnit XML pro CI nebo Markdown hlášení chyby. U neúspěšné kontroly v prohlížeči lze prohlédnout screenshot a Playwright trace. Ukázkový obchod slouží také k ručnímu průchodu nákupem.
+
+## Použitá technologie a hranice rozšíření
+
+Hotová verze používá **Node.js 24, JavaScript, HTML/CSS, vestavěnou SQLite databázi a Playwright 1.62.1**. Kontroly ověřují skutečné HTTP odpovědi, databázové záznamy a viditelný stav v prohlížeči; report umí oddělit chybu produktu od chyby testovacího prostředí. Není zde AI API ani napojení na externí e-shop. Přidání testů pro firemní aplikaci, větší pokrytí integračních rozhraní a spouštění v CI jsou možná rozšíření, která vyžadují úpravu scénářů i bezpečné testovací prostředí.
+
+## Jak by šel princip zavést ve firmě
+
+Nejdřív by se vybraly kritické uživatelské cesty a API kontrakty, připravila syntetická testovací data a oddělené prostředí. Testy by se přepsaly podle skutečných požadavků produktu a známých chyb; výsledky by mohl vyhodnocovat tester spolu s vývojářem. Pro pravidelný provoz by se přidalo CI, správa testovacích dat, stabilní prohlížečové prostředí a bezpečné ukládání důkazů. ReleaseGuard nyní testuje **pouze svůj fiktivní obchod**, nikoli libovolnou firemní aplikaci.
+
 ## Spuštění
 
 Vyžaduje **Node.js 24+**. Doporučený postup:
@@ -54,3 +66,9 @@ Server naslouchá jen na `127.0.0.1`, kontroluje `Host` a `Origin`, omezuje veli
 ## English summary
 
 ReleaseGuard is a local QA portfolio project that tests a fictional shop rather than displaying prewritten results. Seven checks cover HTTP API contracts, input validation, idempotent order creation, SQLite inventory consistency, stock limits, visible prices, and a browser checkout. Four injected faults demonstrate that the suite detects real differences. Failed browser checks retain a screenshot and Playwright trace; findings include expected and observed results, reproduction steps, JSON and JUnit XML exports, and a Markdown bug report. An expandable note explains the test architecture. Tests use isolated SQLite databases, so runs are repeatable. Node.js 24+, Playwright, and a local browser are required. The server is loopback-only and must not be exposed as a production service.
+
+### Workflow, stack, and possible adoption
+
+Run the clean suite, inspect expected and actual results, then enable an injected fault and rerun to see which checks fail. Export JUnit XML for CI or a Markdown bug report; failed browser checks provide screenshot and trace evidence. The implemented stack is Node.js 24, JavaScript, HTML/CSS, built-in SQLite, and Playwright 1.62.1. It has no AI API and currently tests only its own fictional shop.
+
+A company pilot would select critical user journeys and API contracts, create synthetic test data in an isolated environment, and adapt assertions to the real product. CI execution, stable browsers, managed test data, and protected evidence storage would be further work. Passing this demo suite does not establish production coverage.
