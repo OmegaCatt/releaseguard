@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile, mkdir, mkdtemp, rm } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, mkdtemp, rm, cp } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -23,6 +23,13 @@ try {
   await page.locator('#run-button').click();
   await page.waitForFunction(() => document.querySelector('#metric-passed')?.textContent === '7', null, { timeout: 20000 });
   assert.equal(await page.locator('#metric-failed').innerText(), '0');
+  for(const [scenario,failed] of [['duplicate',1],['stock',2],['validation',1]]){
+    await page.locator('#scenario').selectOption(scenario);
+    await page.locator('#run-button').click();
+    await page.waitForFunction(()=>!document.querySelector('#run-button').disabled,null,{timeout:20000});
+    assert.equal(await page.locator('#metric-failed').innerText(),String(failed),`Fault ${scenario} must be detected`);
+    assert.equal(await page.locator('#metric-passed').innerText(),String(7-failed));
+  }
   await page.locator('#scenario').selectOption('price');
   await page.locator('#run-button').click();
   await page.waitForFunction(() => document.querySelector('#metric-failed')?.textContent === '1', null, { timeout: 20000 });
@@ -30,6 +37,7 @@ try {
   await page.locator('#download-junit').click();
   const junitFile = await junitDownload;
   assert.match(await readFile(await junitFile.path(), 'utf8'), /tests="7" failures="1" errors="0"/);
+  await writeFile(path.join(temp,'junit.xml'),await readFile(await junitFile.path()));
   await page.locator('[data-filter="failed"]').click();
   assert.equal(await page.locator('.case-row').count(), 1);
   await page.locator('.case-row').click();
@@ -58,8 +66,11 @@ try {
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   await page.screenshot({ path: path.join(root, 'docs', 'mobile-preview.png'), fullPage: true });
   assert.deepEqual(errors, []);
-  console.log('Browser QA passed: clean 7/7, injected price finding, screenshot, Markdown bug report, history reload, mobile dashboard/store, manual checkout.');
+  console.log('Browser QA passed: clean 7/7, all four injected faults detected, screenshot, JUnit, Markdown bug report, history reload, mobile dashboard/store, manual checkout.');
 } finally {
+  if(process.env.CI){
+    await cp(temp,path.join(root,'qa-artifacts'),{recursive:true});
+  }
   if (browser) await browser.close();
   await new Promise(resolve => server.close(resolve)); server.releaseGuardClose();
   const resolved = path.resolve(temp), parent = path.resolve(tmpdir()) + path.sep;

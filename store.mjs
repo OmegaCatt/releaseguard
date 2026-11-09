@@ -49,6 +49,7 @@ export function placeOrder(store, input) {
       const existing = db.prepare('SELECT id FROM orders WHERE idempotency_key = ?').get(key);
       if (existing) {
         const order = orderById(store, existing.id);
+        if(order.productId!==productId||order.quantity!==quantity||order.email!==email){db.exec('ROLLBACK');return {status:409,body:{error:'Klíč požadavku již patří jiné objednávce.'}};}
         db.exec('COMMIT');
         return { status: 200, body: { order, replayed: true } };
       }

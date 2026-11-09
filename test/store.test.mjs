@@ -37,3 +37,10 @@ test('injected faults produce real observable differences', () => {
   withStore('stock', store => { placeOrder(store, input()); assert.equal(products(store).find(p => p.id === 'luma').stock, 8); });
   withStore('validation', store => { assert.equal(placeOrder(store, input('zero-qty-001', 0)).status, 201); });
 });
+test('reusing an idempotency key for different content is rejected without writes',()=>withStore('clean',store=>{
+ const input={productId:'luma',quantity:1,email:'demo@example.test',idempotencyKey:'conflict-key-001'};
+ assert.equal(placeOrder(store,input).status,201);
+ assert.equal(placeOrder(store,{...input,quantity:2}).status,409);
+ assert.equal(orderCount(store),1);
+ assert.equal(products(store).find(p=>p.id==='luma').stock,7);
+}));

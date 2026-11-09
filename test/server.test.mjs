@@ -24,3 +24,15 @@ test('local server serves approved files and rejects cross-origin writes and bad
   assert.equal(products.products.length, 3);
   assert.equal((await fetch(base + '/api/store/products?run=missing')).status, 404);
 });
+test('two concurrent requests cannot both purchase the last available stock',async t=>{
+ const directory=mkdtempSync(path.join(tmpdir(),'releaseguard-stock-'));
+ const server=createReleaseServer({port:0,dataPath:path.join(directory,'history.sqlite'),artifactRoot:path.join(directory,'artifacts')});
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ t.after(async()=>{await new Promise(resolve=>server.close(resolve));server.releaseGuardClose();if(!path.resolve(directory).startsWith(path.resolve(tmpdir())+path.sep))throw Error('Unsafe cleanup path');rmSync(directory,{recursive:true})});
+ const base=`http://127.0.0.1:${server.address().port}`;
+ const purchase=key=>fetch(base+'/api/store/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({productId:'luma',quantity:8,email:'demo@example.test',idempotencyKey:key})});
+ const responses=await Promise.all([purchase('last-stock-key-001'),purchase('last-stock-key-002')]);
+ assert.deepEqual(responses.map(r=>r.status).sort(),[201,409]);
+ const catalog=await (await fetch(base+'/api/store/products')).json();
+ assert.equal(catalog.products.find(p=>p.id==='luma').stock,0);
+});

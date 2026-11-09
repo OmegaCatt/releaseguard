@@ -1,5 +1,11 @@
 # ReleaseGuard
 
+## Aktualizace 9. 11. 2026: CI a úplná matice závad
+
+GitHub Actions už spouští jednotkové i prohlížečové kontroly. Prohlížečové QA nyní ověřuje všechny čtyři vložené závady a zdravý stav; výsledek musí odpovídat očekávanému počtu selhání. CI uchovává důkazy včetně JUnit a historie po sedm dnů. Stejný idempotency key s jiným obsahem objednávky vrací 409 bez druhého zápisu. Vzdálený běh této nové verze zatím není potvrzen.
+
+English: existing CI now retains QA evidence; browser QA covers the clean state and all four injected faults. Conflicting idempotent replays return HTTP 409 without changing stock.
+
 **Ukázkové QA pracoviště, které skutečně testuje fiktivní e-shop.** Jedním kliknutím spustí sedm kontrol API, SQLite databáze a nákupu v prohlížeči. Výsledek uchová očekávání, skutečný stav, kroky k opakování a u chyby webu také screenshot a Playwright trace. Přepínatelné závady ukazují, že testy chyby opravdu zachytí.
 
 ![Přehled testů](docs/preview.png)
@@ -20,11 +26,11 @@ Spusťte místní server a v rozhraní proveďte čistý běh. Otevřete detail 
 
 ## Použitá technologie a hranice rozšíření
 
-Hotová verze používá **Node.js 24, JavaScript, HTML/CSS, vestavěnou SQLite databázi a Playwright 1.62.1**. Kontroly ověřují skutečné HTTP odpovědi, databázové záznamy a viditelný stav v prohlížeči; report umí oddělit chybu produktu od chyby testovacího prostředí. Není zde AI API ani napojení na externí e-shop. Přidání testů pro firemní aplikaci, větší pokrytí integračních rozhraní a spouštění v CI jsou možná rozšíření, která vyžadují úpravu scénářů i bezpečné testovací prostředí.
+Hotová verze používá **Node.js 24, JavaScript, HTML/CSS, vestavěnou SQLite databázi a Playwright 1.62.1**. Kontroly ověřují skutečné HTTP odpovědi, databázové záznamy a viditelný stav v prohlížeči; report umí oddělit chybu produktu od chyby testovacího prostředí. Není zde AI API ani napojení na externí e-shop. CI již spouští místní sadu i browser QA. Testování skutečné firemní aplikace by vyžadovalo přizpůsobení scénářů a oddělené testovací prostředí.
 
 ## Jak by šel princip zavést ve firmě
 
-Nejdřív by se vybraly kritické uživatelské cesty a API kontrakty, připravila syntetická testovací data a oddělené prostředí. Testy by se přepsaly podle skutečných požadavků produktu a známých chyb; výsledky by mohl vyhodnocovat tester spolu s vývojářem. Pro pravidelný provoz by se přidalo CI, správa testovacích dat, stabilní prohlížečové prostředí a bezpečné ukládání důkazů. ReleaseGuard nyní testuje **pouze svůj fiktivní obchod**, nikoli libovolnou firemní aplikaci.
+Nejdřív by se vybraly kritické uživatelské cesty a API kontrakty, připravila syntetická testovací data a oddělené prostředí. Testy by se přepsaly podle skutečných požadavků produktu a známých chyb; výsledky by mohl vyhodnocovat tester spolu s vývojářem. Existující CI by se přizpůsobilo firemnímu prostředí, správě testovacích dat a pravidlům ukládání důkazů. ReleaseGuard nyní testuje **pouze svůj fiktivní obchod**, nikoli libovolnou firemní aplikaci.
 
 ## Spuštění
 
@@ -71,4 +77,4 @@ ReleaseGuard is a local QA portfolio project that tests a fictional shop rather 
 
 Run the clean suite, inspect expected and actual results, then enable an injected fault and rerun to see which checks fail. Export JUnit XML for CI or a Markdown bug report; failed browser checks provide screenshot and trace evidence. The implemented stack is Node.js 24, JavaScript, HTML/CSS, built-in SQLite, and Playwright 1.62.1. It has no AI API and currently tests only its own fictional shop.
 
-A company pilot would select critical user journeys and API contracts, create synthetic test data in an isolated environment, and adapt assertions to the real product. CI execution, stable browsers, managed test data, and protected evidence storage would be further work. Passing this demo suite does not establish production coverage.
+A company pilot would select critical user journeys and API contracts, create synthetic test data in an isolated environment, and adapt assertions to the real product. CI execution is already configured. Stable deployment-specific browsers, managed test data, and protected production evidence storage would be further work. Passing this demo suite does not establish production coverage.
