@@ -2,7 +2,7 @@
 
 ## Aktualizace 9. 11. 2026: CI a úplná matice závad
 
-GitHub Actions už spouští jednotkové i prohlížečové kontroly. Prohlížečové QA nyní ověřuje všechny čtyři vložené závady a zdravý stav; výsledek musí odpovídat očekávanému počtu selhání. CI uchovává důkazy včetně JUnit a historie po sedm dnů. Stejný idempotency key s jiným obsahem objednávky vrací 409 bez druhého zápisu. Vzdálený běh této nové verze zatím není potvrzen.
+GitHub Actions už spouští jednotkové i prohlížečové kontroly. Prohlížečové QA nyní ověřuje všechny čtyři vložené závady a zdravý stav; výsledek musí odpovídat očekávanému počtu selhání. CI uchovává důkazy včetně JUnit a historie po sedm dnů. Stejný idempotency key s jiným obsahem objednávky vrací 409 bez druhého zápisu. Kód `a57fa90` prošel [GitHub Actions](https://github.com/OmegaCatt/releaseguard/actions/runs/42673166802) při druhém pokusu po výpadku infrastruktury. Artefakt QA byl nahrán.
 
 English: existing CI now retains QA evidence; browser QA covers the clean state and all four injected faults. Conflicting idempotent replays return HTTP 409 without changing stock.
 

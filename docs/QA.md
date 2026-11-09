@@ -1,6 +1,10 @@
+## Ověřený vzdálený běh
+
+GitHub Actions úspěšně ověřily kód `a57fa90`: [výsledek kontroly](https://github.com/OmegaCatt/releaseguard/actions/runs/42673166802). První pokus selhal na infrastruktuře GitHubu ještě před vytvořením jobu. Druhý pokus stejného commitu prošel; artefakt `releaseguard-qa-evidence` byl skutečně nahrán.
+
 # Ověření 9. 11. 2026
 
-9 automatických testů prošlo včetně HTTP souběžného nákupu poslední zásoby a konfliktního idempotentního požadavku. Browser QA prošlo: čistý stav 7/7, duplicate 6/7, stock 5/7, validation 6/7, price 6/7; ověřeny screenshot, JUnit, Markdown report, obnovení historie, mobilní obchod a ruční nákup. V CI se připravuje složka qa-artifacts; upload používá actions/upload-artifact@v7 a sedmidenní retenci. Vzdálené spuštění nové verze dosud není ověřeno. Testovací plán a kontrakt jsou v docs/TEST_PLAN.md.
+9 automatických testů prošlo včetně HTTP souběžného nákupu poslední zásoby a konfliktního idempotentního požadavku. Browser QA prošlo: čistý stav 7/7, duplicate 6/7, stock 5/7, validation 6/7, price 6/7; ověřeny screenshot, JUnit, Markdown report, obnovení historie, mobilní obchod a ruční nákup. V CI se připravuje složka qa-artifacts; upload používá actions/upload-artifact@v7 a sedmidenní retenci. Druhý vzdálený pokus stejného kódu úspěšně prošel; viz odkaz v úvodu. Testovací plán a kontrakt jsou v docs/TEST_PLAN.md.
 
 # Ověření ReleaseGuard
 
