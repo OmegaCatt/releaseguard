@@ -1,3 +1,12 @@
+# Opakované ověření 10. 11. 2026
+
+**9 Node testů prošlo.** Znovu spuštěné prohlížečové QA ověřilo skutečný pracovní postup na dočasných fiktivních podkladech, desktop i mobil a JavaScript chyby. Nová kontrola zopakovala běžné i připravené chybové toky. Původní počet testů zůstává beze změny.
+
+Ověřený předchozí commit 1912f3c: [GitHub Actions](https://github.com/OmegaCatt/releaseguard/actions/runs/42687352375); dostupnost jeho artefaktů byla ověřena. Aktuální revize dokumentace/oprav je kontrolována novým CI. Jeho přesný commit a výsledek jsou v hlavním Portfolio_PROGRESS.md. Staré věty o čekající publikaci v rozbaleném archivu platily jen pro dobu daného zápisu.
+
+<details>
+<summary>Historické výsledky, původní metriky a omezení</summary>
+
 ## Ověřený vzdálený běh
 
 GitHub Actions úspěšně ověřily kód `a57fa90`: [výsledek kontroly](https://github.com/OmegaCatt/releaseguard/actions/runs/42673166802). První pokus selhal na infrastruktuře GitHubu ještě před vytvořením jobu. Druhý pokus stejného commitu prošel; artefakt `releaseguard-qa-evidence` byl skutečně nahrán.
@@ -27,3 +36,6 @@ Aktualizováno 31. 10. 2026. Místní Windows, Node.js 24.22.1, Playwright 1.62.
 Testy používají oddělené SQLite databáze. Porovnávají HTTP stavové kódy, viditelný text na webu i skutečné řádky a zásoby v SQL. Opakované volání se stejným klíčem musí vrátit původní objednávku. Webový test ceny porovnává viditelný text s číselnou hodnotou API; při odlišnosti vznikne screenshot a trace. Prohlížečové testy jsou skutečné a jejich dostupnost závisí na místní instalaci Playwright browseru nebo Edge.
 
 Místní server je svázaný s loopbackem, používá seznam povolených statických cest, omezení JSON na 16 KB, kontrolu `Host`/`Origin` a nepřijímá cizí cílové URL. Všechny vstupy v rozhraní se zobrazují jako text. Nejde o produkční autentizaci ani komplexní bezpečnostní audit. Fiktivní nákup nepoužívá platbu nebo skutečné zákaznické záznamy.
+
+
+</details>
