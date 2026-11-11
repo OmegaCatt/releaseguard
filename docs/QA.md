@@ -1,3 +1,7 @@
+# Regrese UX-1b – rychlé zavření a reload
+
+První Linux main CI odhalilo závod: potvrzení úvodu v události close se někdy nestihlo zapsat před reloadem. Nyní se zapisuje synchronně v Escape/cancel a tlačítkách před zavřením; close je záložní cesta. Původní neúspěšný běh zůstává v Actions. Browser test stále provádí okamžitý reload, očekávání nebylo oslabeno ani přidán čekací čas.
+
 # UX-1 až UX-7 – 11. 11. 2026
 
 Nová skutečná HTTP regrese vytvořila objednávku za 258 000 haléřů, načetla ji podle ID, ověřila sklad 6, zavřela server a znovu jej spustila se stejným souborem historie: objednávka již neexistovala a sklad se obnovil na 8. Browser samostatně prošel nákupní formulář.
