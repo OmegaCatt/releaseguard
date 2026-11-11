@@ -1,3 +1,13 @@
+# UX-1 až UX-7 – 11. 11. 2026
+
+Nová skutečná HTTP regrese vytvořila objednávku za 258 000 haléřů, načetla ji podle ID, ověřila sklad 6, zavřela server a znovu jej spustila se stejným souborem historie: objednávka již neexistovala a sklad se obnovil na 8. Browser samostatně prošel nákupní formulář.
+
+Místně ověřené unit testy: **10 Node**.
+
+Objednávky testovaného obchodu skutečně vznikají přes HTTP v paměťové SQLite databázi, mění sklad a dají se během běhu načíst přes GET /api/store/orders/:id. Po restartu serveru zmizí. Seznam, editace, expedice a trvalá evidence firemních objednávek nejsou implementované. Na disk se ukládá historie testovacích běhů a jejich protokoly, nikoli objednávky obchodu.
+
+Všech sedm aplikací má první přístupný dialog a stálé ovládání nápovědy v hlavičce. Playwright ověřuje skutečný první vstup, obě části, GitHub odkaz, Tab/Shift+Tab, Escape, návrat fokusu, potvrzení po reloadu a mobil. CompanyAtlas čeká s přihlášením na zavření úvodu; hlavička se testuje po přihlášení. Legacy pracovní průchody pokračují po skutečném zavření úvodu. Aktuální commit, CI a přesný rozsah ověření této etapy jsou vedené v hlavním Portfolio_PROGRESS.md; starší zápisy níže jsou historické.
+
 # Opakované ověření 10. 11. 2026
 
 **9 Node testů prošlo.** Znovu spuštěné prohlížečové QA ověřilo skutečný pracovní postup na dočasných fiktivních podkladech, desktop i mobil a JavaScript chyby. Nová kontrola zopakovala běžné i připravené chybové toky. Původní počet testů zůstává beze změny.

@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=24" },
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "start": "node server.mjs",
     "test": "node --test",
-    "check": "node --check server.mjs && node --check runner.mjs && node --check store.mjs",
+    "check": "node --check server.mjs && node --check runner.mjs && node --check store.mjs && node --check web/guide.js && node --check scripts/guide-qa.mjs",
     "qa": "node scripts/qa.mjs"
   },
-  "dependencies": { "playwright": "1.62.1" }
+  "dependencies": {
+    "playwright": "1.62.1"
+  }
 }

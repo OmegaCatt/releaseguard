@@ -1,3 +1,4 @@
+import {verifyGuide,verifyGuideLinks,dismissGuide} from './guide-qa.mjs';
 import assert from 'node:assert/strict';
 import { readFile, writeFile, mkdir, mkdtemp, rm, cp } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -16,7 +17,7 @@ try {
   browser = await launchBrowser();
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, acceptDownloads: true });
   const errors = []; page.on('pageerror', error => errors.push(error.message));
-  await page.goto(base, { waitUntil: 'networkidle' });
+  await page.goto(base, { waitUntil: 'networkidle' });await verifyGuide(page,{});
   assert.equal(await page.locator('#server-status').innerText(), 'Server dostupný');
   await page.locator('.tech-details summary').click();
   assert.equal(await page.locator('.tech-details').getAttribute('open'), '');
@@ -55,7 +56,7 @@ try {
   await page.reload({ waitUntil: 'networkidle' });
   await page.waitForFunction(() => document.querySelector('#metric-failed')?.textContent === '1');
   const store = await browser.newPage({ viewport: { width: 390, height: 844 } });
-  await store.goto(base + '/store', { waitUntil: 'networkidle' });
+  await store.goto(base + '/store', { waitUntil: 'networkidle' });await dismissGuide(store);
   assert.equal(await store.locator('.product-card').count(), 3);
   assert.equal(await store.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   await store.locator('#email').fill('qa@example.test');

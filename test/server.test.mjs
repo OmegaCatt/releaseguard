@@ -6,6 +6,19 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { createReleaseServer } from '../server.mjs';
 
+test('manual orders are real SQL records during runtime but do not survive a server restart',async()=>{
+ const directory=mkdtempSync(path.join(tmpdir(),'releaseguard-order-lifetime-'));
+ const options={port:0,dataPath:path.join(directory,'history.sqlite'),artifactRoot:path.join(directory,'artifacts')};let server;
+ try{
+  server=createReleaseServer(options);await new Promise(r=>server.listen(0,'127.0.0.1',r));let base=`http://127.0.0.1:${server.address().port}`;
+  const response=await fetch(base+'/api/store/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({productId:'luma',quantity:2,email:'fictional@example.test',idempotencyKey:'runtime-order-001'})});assert.equal(response.status,201);const {order}=await response.json();
+  const saved=await(await fetch(base+'/api/store/orders/'+order.id)).json();assert.equal(saved.order.quantity,2);assert.equal(saved.order.totalCents,258000);assert.equal((await(await fetch(base+'/api/store/products')).json()).products.find(p=>p.id==='luma').stock,6);
+  await new Promise(r=>server.close(r));server.releaseGuardClose();server=null;
+  server=createReleaseServer(options);await new Promise(r=>server.listen(0,'127.0.0.1',r));base=`http://127.0.0.1:${server.address().port}`;
+  assert.equal((await fetch(base+'/api/store/orders/'+order.id)).status,404);assert.equal((await(await fetch(base+'/api/store/products')).json()).products.find(p=>p.id==='luma').stock,8);
+ }finally{if(server){await new Promise(r=>server.close(r));server.releaseGuardClose()}if(path.dirname(path.resolve(directory))!==path.resolve(tmpdir())||!path.basename(directory).startsWith('releaseguard-order-lifetime-'))throw Error('Unexpected temporary directory');rmSync(directory,{recursive:true,force:true})}
+});
+
 test('local server serves approved files and rejects cross-origin writes and bad input', async t => {
   const directory = mkdtempSync(path.join(tmpdir(), 'releaseguard-test-'));
   const server = createReleaseServer({ port: 0, dataPath: path.join(directory, 'history.sqlite'), artifactRoot: path.join(directory, 'artifacts') });

@@ -9,6 +9,8 @@ import { runSuite } from './runner.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const STATIC = Object.freeze({
+  '/guide.js':['guide.js','text/javascript; charset=utf-8'],
+  '/guide.css':['guide.css','text/css; charset=utf-8'],
   '/': ['index.html', 'text/html; charset=utf-8'],
   '/app.js': ['app.js', 'text/javascript; charset=utf-8'],
   '/report-junit.mjs': ['report-junit.mjs', 'text/javascript; charset=utf-8'],

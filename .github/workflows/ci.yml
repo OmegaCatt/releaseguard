@@ -29,6 +29,7 @@ jobs:
         with:
           name: releaseguard-qa-evidence
           path: |
+            docs/guide*.png
             qa-artifacts/
             docs/preview.png
             docs/mobile-preview.png

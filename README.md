@@ -1,5 +1,12 @@
 # ReleaseGuard
 
+## Orientace v aplikaci (11. 11. 2026)
+
+Při první návštěvě se otevře stručný návod. Po zavření si aplikace v tomto prohlížeči zapamatuje potvrzení; změna nemá vliv na obchodní data. V hlavičce lze kdykoli otevřít **Jak aplikaci používat** a **Technické informace**. Oba obsahy odkazují na úplný README zde na GitHubu. Pokud úložiště prohlížeče není dostupné, návod lze zavřít a aplikace dál funguje.
+
+Objednávky testovaného obchodu skutečně vznikají přes HTTP v paměťové SQLite databázi, mění sklad a dají se během běhu načíst přes GET /api/store/orders/:id. Po restartu serveru zmizí. Seznam, editace, expedice a trvalá evidence firemních objednávek nejsou implementované. Na disk se ukládá historie testovacích běhů a jejich protokoly, nikoli objednávky obchodu.
+
+
 ## Aktualizace 9. 11. 2026: CI a úplná matice závad
 
 GitHub Actions už spouští jednotkové i prohlížečové kontroly. Prohlížečové QA nyní ověřuje všechny čtyři vložené závady a zdravý stav; výsledek musí odpovídat očekávanému počtu selhání. CI uchovává důkazy včetně JUnit a historie po sedm dnů. Stejný idempotency key s jiným obsahem objednávky vrací 409 bez druhého zápisu. Kód `a57fa90` prošel [GitHub Actions](https://github.com/OmegaCatt/releaseguard/actions/runs/42673166802) při druhém pokusu po výpadku infrastruktury. Artefakt QA byl nahrán.
@@ -69,7 +76,10 @@ Výsledky pocházejí ze skutečných místních běhů, nikoli z připravených
 
 Server naslouchá jen na `127.0.0.1`, kontroluje `Host` a `Origin`, omezuje velikost JSON a nepřijímá libovolné URL ani cizí soubory k testování. **Není určen k veřejnému nasazení ani ke skutečným zákaznickým datům.** Nemá účty, správu práv ani produkční ochranu proti opakovanému spouštění. Chyba prohlížečového prostředí se ve výsledku označí samostatně, aby nevypadala jako chyba produktu. Úspěch sedmi kontrol neprokazuje úplnou bezchybnost obchodu.
 
-## English summary
+## English
+
+First-time visitors see a keyboard-accessible guide; persistent header buttons reopen usage and technical information with a link to this README. Acknowledgement is browser-local and does not store business records. Manual checkout creates actual in-memory SQLite orders, updates stock and supports lookup by ID during runtime. Orders disappear on server restart. Durable order management, order listing/editing and fulfillment are not implemented; test-run history is persisted separately.
+ summary
 
 ReleaseGuard is a local QA portfolio project that tests a fictional shop rather than displaying prewritten results. Seven checks cover HTTP API contracts, input validation, idempotent order creation, SQLite inventory consistency, stock limits, visible prices, and a browser checkout. Four injected faults demonstrate that the suite detects real differences. Failed browser checks retain a screenshot and Playwright trace; findings include expected and observed results, reproduction steps, JSON and JUnit XML exports, and a Markdown bug report. An expandable note explains the test architecture. Tests use isolated SQLite databases, so runs are repeatable. Node.js 24+, Playwright, and a local browser are required. The server is loopback-only and must not be exposed as a production service.
 
