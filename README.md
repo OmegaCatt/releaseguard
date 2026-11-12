@@ -1,5 +1,45 @@
 # ReleaseGuard
 
+## Rychlá ukázka pro zájemce a HR
+
+Spustí testy ukázkového e-shopu a ukáže, jak odhalí záměrně vloženou chybu.
+
+**[Prohlédnout veřejnou ukázku](https://omegacatt.github.io/datadesk/portfolio/#releaseguard)** - bez instalace a přihlášení.
+
+Veřejný odkaz ukazuje uložený snímek výsledků. Plnou aplikaci si spustíte na počítači podle návodu níže.
+
+## Spuštění krok za krokem (Windows)
+
+1. Nainstalujte **Node.js 24 nebo novější** z oficiálního webu [Node.js](https://nodejs.org/en/download/). Potom zavřete a znovu otevřete Terminál, pokud už běžel.
+2. Nahoře na této stránce GitHubu klikněte na zelené **Code** a potom **Download ZIP**.
+3. Stažený ZIP rozbalte: pravým tlačítkem → **Extrahovat vše**. Otevřete rozbalenou složku `releaseguard-main`. Pokud je uvnitř ještě jedna stejně pojmenovaná složka, otevřete i ji; musíte vidět soubor `package.json`.
+4. Otevřete v této složce **Terminál**. Jednoduchá cesta: v horním adresním řádku Průzkumníka napište `powershell` a stiskněte **Enter**. Otevře se příkazové okno přímo v této složce.
+
+Než aplikaci poprvé spustíte, napište postupně tyto dva příkazy. Po každém stiskněte **Enter** a počkejte na dokončení. Druhý stáhne testovací prohlížeč Chromium:
+
+```powershell
+npm.cmd install
+npx.cmd playwright install chromium
+```
+
+Napište tento příkaz a stiskněte **Enter**:
+
+```powershell
+node server.mjs
+```
+
+Terminál **nechte otevřený**. To, že příkaz dál běží a nevrací se nový řádek pro psaní, je v pořádku. V prohlížeči otevřete:
+
+**[http://127.0.0.1:4191](http://127.0.0.1:4191)**
+
+Adresa vede jen do vašeho počítače. Aplikace používá připravená **fiktivní data**. Ponechte scénář bez závady a klikněte na **Spustit 7 kontrol**. Potom vyberte chybu ceny a spusťte stejnou kontrolu znovu. Otevřete nalezenou chybu a její důkazy. Objednávky ukázkového obchodu nejsou trvalá firemní evidence.
+
+**Vypnutí:** vraťte se do Terminálu a stiskněte **Ctrl+C**. Pro příští spuštění znovu otevřete Terminál ve stejné složce a napište už jen spouštěcí příkaz výše.
+
+Pokud se objeví chyba, otevřete [řešení běžných potíží a další možnosti](docs/SPUSTENI.md). Vývojové testy ani znalost programování nejsou podmínkou pro prohlédnutí veřejné ukázky.
+
+---
+
 ## Orientace v aplikaci (11. 11. 2026)
 
 Při první návštěvě se otevře stručný návod. Po zavření si aplikace v tomto prohlížeči zapamatuje potvrzení; změna nemá vliv na obchodní data. V hlavičce lze kdykoli otevřít **Jak aplikaci používat** a **Technické informace**. Oba obsahy odkazují na úplný README zde na GitHubu. Pokud úložiště prohlížeče není dostupné, návod lze zavřít a aplikace dál funguje.
