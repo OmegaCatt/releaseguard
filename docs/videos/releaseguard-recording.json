@@ -1,0 +1,160 @@
+{
+  "recordedAt": "2026-11-16T15:05:42.507Z",
+  "sourceCommit": "d7f8f61e04fb8b7dbf57ee0e77469db81e66b81c",
+  "scriptSha256": "128700b15d9949d240b3ae9075c4e486476822a770f0b253bac603f9458e166a",
+  "helperSha256": "965b860d9ec7fb3d2a26c516544bc6e5d8cc331be3bd5de702eaed7b93dc1396",
+  "videoSha256": "909252b2254868c3ff1b57c2324d9a7b038c59f6088400f16b17b5c7dfc6fc96",
+  "mode": "actual isolated local HTTP/browser; fictional data; AI disabled; silent Full HD app-only recording",
+  "presentation": {
+    "width": 1920,
+    "height": 1080,
+    "captionFontPixels": 42,
+    "burnedInCaptions": true,
+    "visiblePointer": true,
+    "actualClickMarkers": true,
+    "audio": false,
+    "trimStartSeconds": 0.6,
+    "renderedOverlay": {
+      "topLayer": true,
+      "pointer": true,
+      "fontSize": "42px",
+      "pointerSvg": {
+        "width": 36,
+        "height": 42,
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(17, 24, 32)"
+      },
+      "clickMarker": {
+        "width": 68,
+        "height": 68,
+        "border": 4,
+        "color": "rgb(216, 136, 24)"
+      }
+    }
+  },
+  "verified": {
+    "clean": {
+      "passed": 7,
+      "failed": 0
+    },
+    "priceFault": {
+      "passed": 6,
+      "failed": 1
+    },
+    "screenshotEvidence": true,
+    "bugReportDownloaded": true,
+    "jsErrors": []
+  },
+  "captions": [
+    {
+      "start": 1.178,
+      "text": "ReleaseGuard: ověření e-shopu před vydáním.",
+      "end": 4.699
+    },
+    {
+      "start": 4.699,
+      "text": "Nejdřív otestujeme zdravý stav fiktivního e-shopu přes API, databázi a prohlížeč.",
+      "end": 19.089
+    },
+    {
+      "start": 19.089,
+      "text": "Všech sedm kontrol prošlo. Teď vložíme chybu: cena na webu se liší od API.",
+      "end": 34.473
+    },
+    {
+      "start": 34.473,
+      "text": "Kontrola zachytila jednu chybu v ceně.",
+      "end": 38.489
+    },
+    {
+      "start": 38.489,
+      "text": "Zobrazíme selhanou kontrolu a otevřeme její detail.",
+      "end": 42.513
+    },
+    {
+      "start": 42.513,
+      "text": "Nález obsahuje očekávání, skutečnou cenu, kroky k opakování a screenshot.",
+      "end": 47.526
+    },
+    {
+      "start": 47.526,
+      "text": "Hlášení chyby stáhneme pro vývojáře.",
+      "end": 52.979
+    },
+    {
+      "start": 52.979,
+      "text": "Na disk se ukládá historie testů, nikoli trvalá evidence objednávek.",
+      "end": 57.1
+    },
+    {
+      "start": 57.1,
+      "text": "Podrobný návod ke spuštění najdete v README projektu.",
+      "end": 61.112
+    }
+  ],
+  "actions": [
+    {
+      "kind": "click",
+      "target": "run-button",
+      "x": 1520.546875,
+      "y": 451.171875,
+      "captionPosition": "bottom",
+      "captionOverlapsTarget": false,
+      "at": 5.968
+    },
+    {
+      "kind": "select",
+      "target": "scenario",
+      "x": 1340.59375,
+      "y": 451.171875,
+      "captionPosition": "bottom",
+      "captionOverlapsTarget": false,
+      "at": 20.281
+    },
+    {
+      "kind": "click",
+      "target": "run-button",
+      "x": 1520.546875,
+      "y": 451.171875,
+      "captionPosition": "bottom",
+      "captionOverlapsTarget": false,
+      "at": 22.21
+    },
+    {
+      "kind": "click",
+      "target": "Chyby",
+      "x": 630.4375,
+      "y": 539.75,
+      "captionPosition": "bottom",
+      "captionOverlapsTarget": false,
+      "at": 39.716
+    },
+    {
+      "kind": "click",
+      "target": "Chyba\nCAT-UI-01\nCena na stránce odpovídá API\nProhlížeč\n2404 ms\n›",
+      "x": 1072.5,
+      "y": 702.25,
+      "captionPosition": "bottom",
+      "captionOverlapsTarget": false,
+      "at": 41.702
+    },
+    {
+      "kind": "click",
+      "target": "download-case",
+      "x": 746.578125,
+      "y": 992.46875,
+      "captionPosition": "top",
+      "captionOverlapsTarget": false,
+      "at": 48.767
+    },
+    {
+      "kind": "click",
+      "target": "Zavřít detail",
+      "x": 1254,
+      "y": 83.515625,
+      "captionPosition": "bottom",
+      "captionOverlapsTarget": false,
+      "at": 52.178
+    }
+  ]
+}
