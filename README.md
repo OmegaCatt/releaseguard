@@ -6,11 +6,11 @@ Spustí testy ukázkového e-shopu a ukáže, jak odhalí záměrně vloženou c
 
 ### Video ukázka
 
-**[Přehrát video — 1:04, bez zvuku](https://raw.githubusercontent.com/OmegaCatt/releaseguard/main/docs/videos/releaseguard.mp4)** · [Co ukázka předvádí](docs/VIDEO.md)
+**[Stáhnout video MP4 — 1:04, bez zvuku](https://raw.githubusercontent.com/OmegaCatt/releaseguard/main/docs/videos/releaseguard.mp4)** · [Co ukázka předvádí](docs/VIDEO.md)
 
-<a href="https://raw.githubusercontent.com/OmegaCatt/releaseguard/main/docs/videos/releaseguard.mp4"><img src="docs/videos/releaseguard-poster.png" alt="Přehrát video aplikace ReleaseGuard" width="720"></a>
+<a href="https://raw.githubusercontent.com/OmegaCatt/releaseguard/main/docs/videos/releaseguard.mp4"><img src="docs/videos/releaseguard-poster.png" alt="Stáhnout video aplikace ReleaseGuard" width="720"></a>
 
-Skutečný průchod aplikací s českými titulky a viditelnou myší. Klikněte na náhled nebo odkaz nad ním; není potřeba nic instalovat. [Soubor MP4 na GitHubu](https://github.com/OmegaCatt/releaseguard/blob/main/docs/videos/releaseguard.mp4).
+Skutečný průchod aplikací s českými titulky a viditelnou myší. Kliknutím na náhled stáhnete video MP4; po stažení jej otevřete v běžném přehrávači videa. Samotnou aplikaci není potřeba instalovat. [Soubor MP4 na GitHubu](https://github.com/OmegaCatt/releaseguard/blob/main/docs/videos/releaseguard.mp4).
 
 **[Prohlédnout veřejnou ukázku](https://omegacatt.github.io/datadesk/portfolio/#releaseguard)** - bez instalace a přihlášení.
 
